@@ -1,8 +1,9 @@
 <?php
-session_start(); 
-$questions = array(
+session_start();
+$questions = array( // arrayを[]に修正
                   ['question' => '背包',
-                  'answer' => ['リュックサック', 'りんご', 'きのこ', 'くだもの']
+                  'answer' => ['リュックサック', 'りんご', 'きのこ', 'くだもの'],
+                  'correctAnswer' => 'リュックサック'
                   ],
                   ['question' => '蛋糕',
                   'answer' => ['ケーキ', 'たまご', 'もち', 'ちまき']
@@ -38,8 +39,9 @@ $questions = array(
 if (!isset($_SESSION['countPage'])){
   $_SESSION['countPage'] = 1;
 }
-  $page = $_SESSION['countPage'];
- 
+$page = $_SESSION['countPage'];
+
+
 //質問管理
 if (!isset($_SESSION['countQuiz'])){
   $_SESSION['countQuiz'] = 0;
@@ -50,12 +52,19 @@ if (!isset($_SESSION['countQuiz'])){
 //   $_SESSION['correctCount'] = 0;
 // }
 //   $correctCount = $_SESSION['correctCount'];
-  
-//正解は必ず一つ目  
+
+//正解は必ず一つ目
 // $_SESSION['answer'] = $questions[$quiz]['answer'][0];
 
 //選択肢をシャッフル
+// var_dump($questions[0]['answer']);
 shuffle($questions[$quiz]['answer']);
+// var_dump($questions[0]['answer']);
+// var_dump( $questions[0]['answer'][0]);
+
+// 選択肢をシャッフルする処理は削除してよし(今回の要件に含まれてないため)
+// 正しい答えはセッションで管理せず、配列のキー（ex.correctAnswer)で値を保持しておく
+
 
 //正解をセット
 $_SESSION['answer1'] = $questions[0]['answer'][0];
@@ -69,6 +78,7 @@ $_SESSION['answer8'] = $questions[7]['answer'][0];
 $_SESSION['answer9'] = $questions[8]['answer'][0];
 $_SESSION['answer10'] = $questions[9]['answer'][0];
 
+
 ?>
 
 <!DOCTYPE html>
@@ -79,13 +89,13 @@ $_SESSION['answer10'] = $questions[9]['answer'][0];
 </head>
 <body class="container-sm mt-5 bg-info">
   <form method="POST" action="sample.php">
-  　<h2 class="text-center">
-    　<?php echo $page ?>問目
+  <h2 class="text-center">
+    <?php echo $page ?>問目
     </h2>
     <div class="form-group">
-    　<h2>問題:<?php echo $questions[$quiz]['question']; ?></h2>
+    <h2>問題:<?php echo $questions[$quiz]['question']; ?></h2>
     <div class="form-check">
-    　<?php foreach ($questions[$quiz]['answer'] as $answer): ?>
+    <?php foreach ($questions[$quiz]['answer'] as $answer): ?>
       <input class="form-check-input" type="radio" name="select" value="<?php echo $answer ?>">
       <label class="form-check-label" for="<?php echo $answer ?>">
       <?php echo $answer ?>

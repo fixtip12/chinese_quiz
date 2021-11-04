@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <!doctype html>
-<html lang="en">
+<html lang="en"> // 言語設定をなおす
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,10 +11,10 @@
   </head>
   <body>
    <br>
-   <h4 align="center">回答お疲れさまでした！！</h4>
+   <h4 class="text-center">回答お疲れさまでした！！</h4>
    <br>
-   <h3 align="center">あなたの正答率は〇〇%です。</h3>
-   <br> 
+   <h3 align="center">あなたの正答率は〇〇%です。</h3> //classのtext-centerを使う(align属性使ってるとこすべて)
+   <br>
   <table class="table table-striped container">
    <thead>
     <tr>
@@ -26,8 +26,8 @@
    <tbody>
     <tr>
       <th>1問目</th>
-      <td><?php echo $_SESSION['result1'] ?></td>
-      <td><?php echo $_SESSION['answer1'] ?></td> 
+      <td><?php echo $_SESSION['result1'] ?></td> //配列をforeachして表示させる(range関数を使えば実現可？)
+      <td><?php echo $_SESSION['answer1'] ?></td>
     </tr>
     <tr>
       <th>2問目</th>
