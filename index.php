@@ -1,83 +1,60 @@
 <?php
 session_start();
-$questions = array( // arrayを[]に修正
+$questions = [ // arrayを[]に修正
                   ['question' => '背包',
                   'answer' => ['リュックサック', 'りんご', 'きのこ', 'くだもの'],
                   'correctAnswer' => 'リュックサック'
                   ],
                   ['question' => '蛋糕',
-                  'answer' => ['ケーキ', 'たまご', 'もち', 'ちまき']
+                  'answer' => ['もち', 'たまご', 'ケーキ', 'ちまき'],
+                  'correctAnswer' => 'ケーキ'
                   ],
                   ['question' => '退烧药',
-                  'answer' => ['解熱剤', '風邪薬', '痛み止め', 'アスピリン']
+                  'answer' => ['アスピリン', '風邪薬', '痛み止め', '解熱剤'],
+                  'correctAnswer' => '解熱剤'
                   ],
                   ['question' => '蜈蚣',
-                  'answer' => ['ムカデ', 'カタツムリ', 'ミミズ', 'アリ']
+                  'answer' => ['ムカデ', 'カタツムリ', 'ミミズ', 'アリ'],
+                  'correctAnswer' => 'ムカデ'
                   ],
                   ['question' => '扣子',
-                  'answer' => ['襟', 'ポケット', '裾', 'ボタン']
+                  'answer' => ['ボタン', 'ポケット', '裾', '襟'],
+                  'correctAnswer' => '襟'
                   ],
                   ['question' => '手刹',
-                  'answer' => ['サイドブレーキ', 'アクセル', 'ブレーキ', 'ワイパー']
+                  'answer' => ['ブレーキ', 'アクセル', 'サイドブレーキ', 'ワイパー'],
+                  'correctAnswer' => 'サイドブレーキ'
                   ],
                   ['question' => '萝卜',
-                  'answer' => ['だいこん', 'にんじん', 'かぶ', 'れんこん']
+                  'answer' => ['かぶ', 'にんじん', 'だいこん', 'れんこん'],
+                  'correctAnswer' => 'だいこん'
                   ],
                   ['question' => '药方',
-                  'answer' => ['処方箋', 'カルテ', '診断書', '保険証']
+                  'answer' => ['診断書', 'カルテ', '処方箋', '保険証'],
+                  'correctAnswer' => '処方箋'
                   ],
                   ['question' => '考拉',
-                  'answer' => ['コアラ', 'アリクイ', 'ナマケモノ', 'カンガルー']
+                  'answer' => ['アリクイ', 'コアラ', 'ナマケモノ', 'カンガルー'],
+                  'correctAnswer' => 'コアラ'
                   ],
                   ['question' => '争端',
-                  'answer' => ['紛争', 'テロ', 'デモ', '暴動']
+                  'answer' => ['紛争', 'テロ', 'デモ', '暴動'],
+                  'correctAnswer' => '紛争'
                   ]
-             );
+              ];
 
-            //  $_SESSION = [];
 //ページ管理
 if (!isset($_SESSION['countPage'])){
   $_SESSION['countPage'] = 1;
 }
-$page = $_SESSION['countPage'];
-
 
 //質問管理
 if (!isset($_SESSION['countQuiz'])){
   $_SESSION['countQuiz'] = 0;
 }
-  $quiz = $_SESSION['countQuiz'];
-
-// if (!isset($_SESSION['correctCount'])){
-//   $_SESSION['correctCount'] = 0;
-// }
-//   $correctCount = $_SESSION['correctCount'];
-
-//正解は必ず一つ目
-// $_SESSION['answer'] = $questions[$quiz]['answer'][0];
-
-//選択肢をシャッフル
-// var_dump($questions[0]['answer']);
-shuffle($questions[$quiz]['answer']);
-// var_dump($questions[0]['answer']);
-// var_dump( $questions[0]['answer'][0]);
 
 // 選択肢をシャッフルする処理は削除してよし(今回の要件に含まれてないため)
 // 正しい答えはセッションで管理せず、配列のキー（ex.correctAnswer)で値を保持しておく
-
-
-//正解をセット
-$_SESSION['answer1'] = $questions[0]['answer'][0];
-$_SESSION['answer2'] = $questions[1]['answer'][0];
-$_SESSION['answer3'] = $questions[2]['answer'][0];
-$_SESSION['answer4'] = $questions[3]['answer'][0];
-$_SESSION['answer5'] = $questions[4]['answer'][0];
-$_SESSION['answer6'] = $questions[5]['answer'][0];
-$_SESSION['answer7'] = $questions[6]['answer'][0];
-$_SESSION['answer8'] = $questions[7]['answer'][0];
-$_SESSION['answer9'] = $questions[8]['answer'][0];
-$_SESSION['answer10'] = $questions[9]['answer'][0];
-
 
 ?>
 
@@ -88,14 +65,14 @@ $_SESSION['answer10'] = $questions[9]['answer'][0];
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
 </head>
 <body class="container-sm mt-5 bg-info">
-  <form method="POST" action="sample.php">
+  <form method="POST" action="select_answer.php">
   <h2 class="text-center">
-    <?php echo $page ?>問目
+    <?php echo $_SESSION['countPage'] ?>問目
     </h2>
     <div class="form-group">
-    <h2>問題:<?php echo $questions[$quiz]['question']; ?></h2>
+    <h2>問題:<?php echo $questions[$_SESSION['countQuiz']]['question'] ?></h2>
     <div class="form-check">
-    <?php foreach ($questions[$quiz]['answer'] as $answer): ?>
+    <?php foreach ($questions[$_SESSION['countQuiz']]['answer'] as $answer): ?>
       <input class="form-check-input" type="radio" name="select" value="<?php echo $answer ?>">
       <label class="form-check-label" for="<?php echo $answer ?>">
       <?php echo $answer ?>
