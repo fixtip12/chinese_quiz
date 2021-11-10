@@ -10,8 +10,14 @@ if (isset($select_answer)){
 } else {
   $select_answer = $_POST['select'];//$select_answerを配列として認識してない？
 }
+// var_dump($select_answer) ←ここの行でvar_dumpして$select_answerの中身見て配列が入ってるか確認してみて
 
-   
+/**
+ *  ユーザーの答えを管理する配列のセッションを作ってそこにデータを追加するようにしてみて
+ *  単なる変数の$select_answerという配列を作ってもページ遷移のたびにデータは消えるのでセッションを使う
+ *  参考になりそうなURL↓
+ * https://stackoverflow.com/questions/2616540/can-i-use-array-push-on-a-session-array-in-php
+ * */
 
 if (isset($_SESSION['countPage'])){
    $_SESSION['countPage']++;
